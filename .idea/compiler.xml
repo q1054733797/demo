@@ -7,12 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="shiro" />
+        <module name="webSocket" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="asd" target="1.5" />
       <module name="shiro" target="1.7" />
       <module name="test" target="1.5" />
+      <module name="webSocket" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

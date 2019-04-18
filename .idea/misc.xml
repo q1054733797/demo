@@ -3,11 +3,13 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/asd" />
     <file type="web" url="file://$PROJECT_DIR$/shiro" />
+    <file type="web" url="file://$PROJECT_DIR$/webSocket" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/shiro/pom.xml" />
+        <option value="$PROJECT_DIR$/webSocket/pom.xml" />
       </list>
     </option>
   </component>

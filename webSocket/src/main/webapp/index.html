@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+</head>
+<body>
+    <input id="message"><br>
+    <input type="button" value="发送" onclick="sendMessage()"><br>
+    <p id="serverMessage" style="color: red;"></p>
+
+    <script>
+        var websocket = null;
+        if ("WebSocket" in window){
+            websocket = new WebSocket("ws://localhost:8080/server");
+
+            websocket.onopen = function(){
+                websocket.send("客户端连接成功");
+            }
+
+            websocket.onmessage = function (event) {
+                setMessageInnerHtml(event.data);
+            }
+
+            websocket.onerror = function () {
+                alert("websocket发生错误");
+            }
+
+            websocket.onclose = function () {
+                alert("websocket关闭");
+            }
+
+            window.onbeforeunload = function () {
+                closeWebSocket();
+            }
+        }else{
+            alert("该浏览器不支持websocket");
+        }
+
+        function sendMessage() {
+            var message = document.getElementById("message").value;
+            websocket.send(message);
+        }
+
+        function setMessageInnerHtml(innerHtml) {
+            document.getElementById('serverMessage').innerHTML = innerHtml;
+        }
+
+        function closeWebSocket() {
+            websocket.close();
+        }
+    </script>
+</body>
+</html>
