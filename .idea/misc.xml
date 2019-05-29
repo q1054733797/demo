@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/webSocket/pom.xml" />
         <option value="$PROJECT_DIR$/springboot/pom.xml" />
         <option value="$PROJECT_DIR$/RabbitMQ/pom.xml" />
+        <option value="$PROJECT_DIR$/quartz/pom.xml" />
       </list>
     </option>
   </component>
