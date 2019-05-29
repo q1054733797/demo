@@ -27,7 +27,9 @@ public class TestLambda {
 //                return hero.getHp() > 100 && hero.getDamage() > 50;
 //            }
 //        };
-        filter2(heroes,TestLambda::testHero);
+//        filter2(heroes,heroChecker);
+        IHeroChecker heroChecker = hero -> hero.getHp() > 100 && hero.getDamage() > 50;
+        filter2(heroes, hero -> hero.getHp() >100 && hero.getDamage() > 50);
     }
 
     public static void filter(List<Hero> heroes){
