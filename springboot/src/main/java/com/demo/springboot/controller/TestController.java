@@ -1,8 +1,12 @@
 package com.demo.springboot.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * @ClassName: TestController
@@ -13,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class TestController {
     @RequestMapping("test")
-    public String test(){
+    public String test(Model model){
+        System.out.println(123);
+        model.addAttribute("now", DateFormat.getDateTimeInstance().format(new Date()));
         return "login";
     }
 

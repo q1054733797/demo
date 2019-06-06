@@ -10,6 +10,7 @@
         <module name="RabbitMQ" />
         <module name="shiro" />
         <module name="springboot" />
+        <module name="springdata" />
         <module name="webSocket" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="RabbitMQ" target="1.5" />
       <module name="shiro" target="1.7" />
       <module name="springboot" target="1.8" />
+      <module name="springdata" target="1.8" />
       <module name="test" target="1.5" />
       <module name="webSocket" target="1.7" />
     </bytecodeTargetLevel>

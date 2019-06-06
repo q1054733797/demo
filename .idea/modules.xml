@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/quartz/quartz.iml" filepath="$PROJECT_DIR$/quartz/quartz.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiro/shiro.iml" filepath="$PROJECT_DIR$/shiro/shiro.iml" />
       <module fileurl="file://$PROJECT_DIR$/springboot/springboot.iml" filepath="$PROJECT_DIR$/springboot/springboot.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springdata/springdata.iml" filepath="$PROJECT_DIR$/springdata/springdata.iml" />
       <module fileurl="file://$PROJECT_DIR$/webSocket/webSocket.iml" filepath="$PROJECT_DIR$/webSocket/webSocket.iml" />
     </modules>
   </component>
