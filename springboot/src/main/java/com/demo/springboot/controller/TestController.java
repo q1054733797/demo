@@ -18,7 +18,6 @@ import java.util.Date;
 public class TestController {
     @RequestMapping("test")
     public String test(Model model){
-        System.out.println(123);
         model.addAttribute("now", DateFormat.getDateTimeInstance().format(new Date()));
         return "login";
     }

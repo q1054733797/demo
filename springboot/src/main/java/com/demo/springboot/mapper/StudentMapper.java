@@ -12,6 +12,6 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface StudentMapper {
-    @Select("select * from t_student")
+    @Select("select * from t_student order by id asc")
     List<Student> getStudents(Student student);
 }

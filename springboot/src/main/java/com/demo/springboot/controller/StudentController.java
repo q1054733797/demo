@@ -24,17 +24,16 @@ public class StudentController {
 
     @RequestMapping("getStudents")
     @ResponseBody
-    public List getStudents(Student student){
-        Page<Object> page = PageHelper.startPage(2, 2,true);
+    public Page<Object> getStudents(Student student,Integer pageNum,Integer pageSize){
+        System.out.println(pageNum);
+        System.out.println(pageSize);
+        Page<Object> page = PageHelper.startPage(pageNum, pageSize,true);
+        page.setReasonable(true);
         List<Student> students = studentService.getStudents(student);
+        System.out.println(page.getPageNum());
         System.out.println(students);
         System.out.println("总页数：" + page.getPages());
         System.out.println("总数据条数:" + page.getTotal());
-        Page<Object> page1 = PageHelper.offsetPage(2, 2);
-        students = studentService.getStudents(student);
-        System.out.println(students);
-        System.out.println("总页数：" + page1.getPages());
-        System.out.println("总数据条数:" + page1.getTotal());
-        return students;
+        return page;
     }
 }
