@@ -1,6 +1,7 @@
 package com.demo.springsecurity.configuration;
 
 import com.demo.springsecurity.mapper.UserMapper;
+import com.demo.springsecurity.pojo.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @ClassName: WebSecuriryConfig
@@ -28,15 +34,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/").permitAll().anyRequest().authenticated()
+                .antMatchers("/").permitAll()
+                .antMatchers("/hasRole").hasRole("TEST")
+                .antMatchers("/hasAuthority").hasAuthority("TEST")
+                .anyRequest().authenticated()
                 .and().formLogin().permitAll()
                 .and().logout().permitAll();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(username -> userMapper.getUserByUsername(username))
-            .passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(username -> {
+            User user = userMapper.getUserByUsername(username);
+            List<GrantedAuthority> authorities = new ArrayList<>();
+            authorities.add(new SimpleGrantedAuthority("ROLE_TEST"));
+            authorities.add(new SimpleGrantedAuthority("TEST"));
+            user.setAuthorities(authorities);
+            return user;
+        }).passwordEncoder(new BCryptPasswordEncoder());
         //.passwordEncoder(new BCryptPasswordEncoder());
 //        auth.inMemoryAuthentication().passwordEncoder(new BCryptPasswordEncoder())
 //                .withUser("admin").

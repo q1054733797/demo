@@ -24,17 +24,8 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private String realName;
-    private String type;
-    private Map<String, Object> associatedResources = new HashMap<>();
-    /**
-     * 用户关注的企业列表
-     */
-    private List<String> favourite = new ArrayList<>();
 
-    /**
-     * 用户在系统中的角色列表，将根据角色对用户操作权限进行限制
-     */
-    private List<String> roles = new ArrayList<>();
+    private List<GrantedAuthority> authorities;
 
     public void setPassword(String password) {
         this.password = PASSWORD_ENCODER.encode(password);
@@ -42,12 +33,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<GrantedAuthority> authorities = new ArrayList<>();
-        if(this.username != null){
-            SimpleGrantedAuthority authority = new SimpleGrantedAuthority(this.username);
-            authorities.add(authority);
-        }
-        return authorities;
+        return this.authorities;
     }
 
     @Override
