@@ -32,7 +32,9 @@
     <a style="color: blue;cursor: pointer;" onclick="getBeforePage()">上一页</a>
     <a style="color: blue;cursor: pointer;" onclick="getNextPage()">下一页</a>
     <a style="color: blue;cursor: pointer;" onclick="getLastPage()">尾页</a>
-    <input id="pageNum" style="display: none" value="1">
+    页数:<i id="pageNum"></i>/
+    <i id="pages"></i>&nbsp;
+    总数:<i id="total"></i>
 
     <script>
         var webSocket = null;
@@ -47,33 +49,47 @@
         }
 
         function getFirstPage() {
-            var data = getData(1,2);
-            setTBody(data);
-            $("#pageNum").val(1);
+            var page = getData(1,2);
+            setPage(page);
+            setTBody(page.list);
         }
 
         function getBeforePage() {
-            var pageNum = parseInt($("#pageNum").val());
+            var pageNum = parseInt($("#pageNum").html());
             if (pageNum > 1){
                 pageNum = pageNum - 1;
             } else{
                 pageNum = 1;
             }
-            var data = getData(pageNum,2);
-            setTBody(data);
-            $("#pageNum").val(pageNum);
+            var page = getData(pageNum,2);
+            setPage(page);
+            setTBody(page.list);
         }
 
         function getNextPage() {
-            var pageNum = parseInt($("#pageNum").val());
-            pageNum = pageNum + 1;
-            var data = getData(pageNum,2);
-            setTBody(data);
-            $("#pageNum").val(pageNum);
+            var pageNum = parseInt($("#pageNum").html());
+            var pages = parseInt($("#pages").html());
+            if (pages >= pageNum + 1){
+                pageNum = pageNum + 1;
+            } else{
+                pageNum = pages;
+            }
+            var page = getData(pageNum,2);
+            setPage(page);
+            setTBody(page.list);
         }
 
         function getLastPage() {
+            var pages = parseInt($("#pages").html());
+            var page = getData(pages,2);
+            setPage(page);
+            setTBody(page.list);
+        }
 
+        function setPage(page) {
+            $("#pageNum").html(page.pageNum);
+            $("#pages").html(page.pages);
+            $("#total").html(page.total);
         }
 
         function setTBody(data) {

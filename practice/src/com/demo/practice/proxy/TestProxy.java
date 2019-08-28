@@ -1,10 +1,6 @@
 package com.demo.practice.proxy;
 
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @ClassName: TestProxy
@@ -13,22 +9,11 @@ import java.util.List;
  * @Version: 1.0
  */
 public class TestProxy {
-    final List<String> list = new ArrayList<>();
-
-    public void testProxy(){
-        List<String> list1 = new ArrayList<>();
-        Object proxyInstance = Proxy.newProxyInstance(list.getClass().getClassLoader(),
-                list.getClass().getInterfaces(),
-                (proxy,method,args) -> method.invoke(list, args));
-        if(proxyInstance instanceof List){
-            list1 = (List<String>)proxyInstance;
-        }
-        list1.add("what the hell");
-        System.out.println(proxyInstance);
-    }
-
     public static void main(String[] args) {
-        TestProxy testProxy = new TestProxy();
-        testProxy.testProxy();
+        User user = new User("张三");
+        Person userProxy = (Person)Proxy.newProxyInstance(User.class.getClassLoader(),
+                User.class.getInterfaces(),
+                (proxy,method,argz) -> method.invoke(user,argz));
+        userProxy.giveMoney();
     }
 }

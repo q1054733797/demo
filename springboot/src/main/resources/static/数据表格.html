@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>数据表格</title>
+		<link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css" />
+		<link rel="stylesheet" type="text/css" href="easyui/themes/icon.css" />
+		<script type="text/javascript" src="easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+	</head>
+	<body>
+		<div id="toolbar">
+			<form id="searchForm">
+				<table>
+					<tr>
+						<td>用户名:</td>
+						<td>
+							<input id="username" class="easyui-textbox">
+						</td>
+						<td>姓名:</td>
+						<td>
+							<input id="realName" class="easyui-textbox">
+						</td>
+						<td></td>
+						<td>
+							<a class="easyui-linkbutton" iconCls="icon-search" onclick="searchUser()">查询</a>
+							<a class="easyui-linkbutton" iconCls="icon-clear" onclick="reset()">重置</a>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="6">
+							<a class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addUser()">添加</a>
+							<a class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">修改</a>
+							<a class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteUsers()">删除</a>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<table id="grid" class="easyui-datagrid" style="width: 100%;height: 500px;" fitColumns="true"
+			singleSelect="false" toolbar="#toolbar" striped="true" pagination="true"
+			url="/demo/getUsers" fit="true" onClickRow="clickRow()">
+			<thead>
+				<th field="ck" checkbox="true"></th>
+				<th field="id" width="50" align="center" editor="text">id</th>
+				<th field="username" width="50" align="center">用户名</th>
+				<th field="password" width="50" align="center" editor="">密码</th>
+				<th field="realName" width="50" align="center">姓名</th>
+			</thead>
+		</table>
+		
+		<div id="dialog" class="easyui-dialog" buttons="#dlg-buttons" style="width: 300px;height: 250px;" closed="true"
+			 modal="true">
+			<form id="form" method="post">
+				<input id="type" style="display:none;" />
+				<input name="id" style="display:none;" />
+				<table style="margin-top: 20px;padding: 10px;">
+					<tr>
+						<td style="text-align: right;">用户名:</td>
+						<td>
+							<input name="username" class="easyui-textbox" prompt="请输入用户名" style="width: 200px;" required="true" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">密码:</td>
+						<td>
+							<input name="password" class="easyui-passwordbox" prompt="请输入密码" style="width: 200px;" required="true" />
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align: right;">姓名:</td>
+						<td>
+							<input name="realName" class="easyui-textbox" prompt="请输入姓名" style="width: 200px;" required="true" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div id="dlg-buttons">
+			<a class="easyui-linkbutton" iconCls="icon-save" onclick="save()">保存</a>
+			<a class="easyui-linkbutton" iconCls="icon-cancel" onclick="cancel()">取消</a>
+		</div>
+	</body>
+	<script>
+
+		function searchUser() {
+			var username = $("#username").val();
+            var realName = $("#realName").val();
+            $("#grid").datagrid("load",{
+                username:username,
+				realName:realName
+			})
+        }
+
+        function reset() {
+			$("#searchForm").form("clear");
+        }
+
+		function addUser(){
+			$("#form").form("clear");
+			$("#type").val("add");
+			$("#dialog").dialog("open").dialog("setTitle","新增用户");
+		}
+		
+		function editUser(){
+			var row = $("#grid").datagrid("getSelected");
+			if(row){
+				$("#form").form("clear");
+				$("#form").form("load",row);
+				$("#type").val("edit");
+				$("#dialog").dialog("open").dialog("setTitle","修改用户");
+			}else{
+				$.messager.alert("提示信息","请选中一行");
+			}
+		}
+
+		function deleteUsers() {
+			var rows = $("#grid").datagrid("getSelections");
+			if (rows.length > 0){
+			    $.messager.confirm("提示信息","确定要删除吗？",function (action) {
+					if (action){
+					    var json = JSON.stringify(rows);
+					    $.ajax({
+							url:"/demo/deleteUsers",
+							type:"post",
+							data:json,
+							contentType:"application/json",
+							async:false,
+							success:function (result) {
+								if (0 === result.resultCode){
+								    $.messager.alert("提示信息",result.resultMsg,"info",function (action) {
+										$("#grid").datagrid("reload");
+                                    })
+								}else{
+								    $.messager.alert("提示信息",result.resultMsg);
+								}
+                            }
+						});
+					}
+                })
+			} else{
+			    $.messager.alert("提示信息","最少选择一条数据");
+			}
+        }
+		
+		function save(){
+			var type = $("#type").val();
+			if(type == "add"){
+				add();
+			}else if(type == "edit"){
+				edit();
+			}
+		}
+		
+		function add(){
+			$("#form").form("submit",{
+				url:"/demo/addUser",
+				onSubmit:function(){
+					return $(this).form("validate");
+				},
+				success:function(result){
+                    result = JSON.parse(result);
+					if(0 === result.resultCode){
+						$.messager.alert("提示消息",result.resultMsg,"info",function(action){
+							$("#dialog").dialog("close");
+							$("#grid").datagrid("reload");
+						});
+					}else{
+						$.messager.alert("提示消息",result.resultMsg,"error",function(action){
+							$("#dialog").dialog("close");
+						});
+					}
+				}
+			});
+		}
+		
+		function edit(){
+			$("#form").form("submit",{
+				url:"/demo/editUser",
+				onSubmit:function(){
+					return $(this).form("validate");
+				},
+				success:function(result){
+                    result = JSON.parse(result);
+					if(0 === result.resultCode){
+						$.messager.alert("提示消息",result.resultMsg,"info",function(action){
+							$("#dialog").dialog("close");
+							$("#grid").datagrid("reload");
+						});
+					}else{
+						$.messager.alert("提示消息",result.resultMsg,"error",function(action){
+							$("#dialog").dialog("close");
+						});
+					}
+				}
+			});
+		}
+		
+		function cancel(){
+			$("#dialog").dialog("close");
+		}
+	</script>
+</html>

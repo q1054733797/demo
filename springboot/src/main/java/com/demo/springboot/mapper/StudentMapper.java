@@ -1,6 +1,8 @@
 package com.demo.springboot.mapper;
 
 import com.demo.springboot.pojo.Student;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -11,7 +13,8 @@ import java.util.List;
  * @Date: Create in 2019/6/5 10:52
  * @Version: 1.0
  */
+@Mapper
 public interface StudentMapper {
-    @Select("select * from t_student order by id asc")
     List<Student> getStudents(Student student);
+    int addStudent(Student student);
 }

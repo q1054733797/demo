@@ -13,6 +13,7 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -30,8 +31,12 @@ public class MyRealm extends AuthorizingRealm {
         String username = principalCollection.getPrimaryPrincipal().toString();
         AuthorizationInfo authorizationInfo = null;
         try {
-            Set<String> roles = shiroService.getRolesByUsername(username);
-            Set<String> permissions = shiroService.getPermissionsByUsername(username);
+            //Set<String> roles = shiroService.getRolesByUsername(username);
+            //Set<String> permissions = shiroService.getPermissionsByUsername(username);
+            Set<String> roles = new HashSet<>();
+            roles.add("*");
+            Set<String> permissions = new HashSet<>();
+            permissions.add("update");
             authorizationInfo = new SimpleAuthorizationInfo(roles);
             ((SimpleAuthorizationInfo) authorizationInfo).addStringPermissions(permissions);
         } catch (Exception e) {
@@ -44,17 +49,18 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = authenticationToken.getPrincipal().toString();
         AuthenticationInfo authenticationInfo = null;
-        try {
-            User user = shiroService.getUserByUsername(username);
-            if(user != null){
-                authenticationInfo = new SimpleAuthenticationInfo(username,user.getPassword(),getName());
-            }else{
-                System.out.println("该用户不存在");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("获取用户失败");
-        }
+//        try {
+//            User user = shiroService.getUserByUsername(username);
+//            if(user != null){
+//                authenticationInfo = new SimpleAuthenticationInfo(username,user.getPassword(),getName());
+//            }else{
+//                System.out.println("该用户不存在");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            System.out.println("获取用户失败");
+//        }
+        authenticationInfo = new SimpleAuthenticationInfo(username,"123",getName());
         return authenticationInfo;
     }
 }

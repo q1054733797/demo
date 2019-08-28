@@ -2,27 +2,38 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="activiti" />
+        <module name="dubbo" />
+        <module name="dubboclient" />
         <module name="quartz" />
         <module name="RabbitMQ" />
         <module name="shiro" />
         <module name="springboot" />
         <module name="springdata" />
+        <module name="springsecurity" />
         <module name="webSocket" />
+        <module name="zookeeper" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="activiti" target="1.8" />
       <module name="asd" target="1.5" />
+      <module name="dubbo" target="1.8" />
+      <module name="dubboclient" target="1.8" />
       <module name="quartz" target="1.5" />
       <module name="RabbitMQ" target="1.5" />
       <module name="shiro" target="1.7" />
       <module name="springboot" target="1.8" />
       <module name="springdata" target="1.8" />
+      <module name="springsecurity" target="1.8" />
       <module name="test" target="1.5" />
       <module name="webSocket" target="1.7" />
+      <module name="zookeeper" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

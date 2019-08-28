@@ -15,10 +15,9 @@ import java.util.Date;
 public class MailJob implements Job {
 
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        JobDetail detail = jobExecutionContext.getJobDetail();
-        String email = detail.getJobDataMap().getString("email");
-        String name = detail.getJobDataMap().getString("name");
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        System.out.printf("给%s的邮件地址%s发送了一封邮件，当前时间是%s\n",name,email,sdf.format(new Date()));
+        JobDetail jobDetail = jobExecutionContext.getJobDetail();
+        String email = jobDetail.getJobDataMap().getString("email");
+        String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        System.out.println(date + "向邮箱" + email + "发送了一封邮件");
     }
 }

@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface StudentService {
     List<Student> getStudents(Student student);
+    int addStudent(Student student);
 }

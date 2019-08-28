@@ -3,6 +3,7 @@ package com.demo.practice.date;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * @ClassName: Test
@@ -15,6 +16,6 @@ public class Test {
         Timestamp timestamp = new Timestamp(new Date().getTime());
         System.out.println(timestamp);
         Date date = new Date(timestamp.getTime());
-        System.out.println(DateFormat.getDateTimeInstance().format(date));
+        System.out.println(DateFormat.getDateTimeInstance(DateFormat.FULL, DateFormat.FULL).format(date));
     }
 }
