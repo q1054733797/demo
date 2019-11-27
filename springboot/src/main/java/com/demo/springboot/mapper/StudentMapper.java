@@ -4,6 +4,8 @@ import com.demo.springboot.pojo.Student;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,7 +16,11 @@ import java.util.List;
  * @Version: 1.0
  */
 @Mapper
+@Repository
 public interface StudentMapper {
-    List<Student> getStudents(Student student);
-    int addStudent(Student student);
+    @Update("update t_student set clazzId = #{clazzId} where studentId = #{studentId}")
+    int updateStudent(Student student);
+
+    @Select("select * from t_student")
+    List<Student> getStudents();
 }

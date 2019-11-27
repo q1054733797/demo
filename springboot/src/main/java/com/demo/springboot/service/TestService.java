@@ -1,6 +1,8 @@
 package com.demo.springboot.service;
 
-import java.util.HashMap;
+import com.demo.springboot.pojo.User;
+
+import java.util.List;
 
 /**
  * @ClassName: TestService
@@ -9,5 +11,5 @@ import java.util.HashMap;
  * @Version: 1.0
  */
 public interface TestService {
-    int addTest(HashMap<String,String> map);
+    List<User> addTest();
 }

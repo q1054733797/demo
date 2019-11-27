@@ -22,6 +22,5 @@ import java.util.List;
 public class Student implements Serializable {
     private Integer studentId;
     private String studentName;
-    private List<Teacher> teachers;
-    private Clazz clazz;
+    private Integer clazzId;
 }

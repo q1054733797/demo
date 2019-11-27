@@ -1,5 +1,6 @@
 package com.demo.springboot.mapper;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.demo.springboot.pojo.User;
 import org.apache.ibatis.annotations.*;
 
@@ -12,9 +13,13 @@ import java.util.List;
  * @Version: 1.0
  */
 @Mapper
+@DS("oracle")
 public interface UserMapper {
     @SelectProvider(type = UserProvider.class,method = "getUsers")
     List<User> getUsers(User user);
+
+    @Select("select * from t_user where username = #{username}")
+    User getUser(User user);
 
     @Insert("insert into t_user(username,password,realName) values(#{username},#{password},#{realName})")
     int addUser(User user);
@@ -22,6 +27,6 @@ public interface UserMapper {
     @DeleteProvider(type = UserProvider.class,method = "deleteUsers")
     int deleteUsers(List<User> users);
 
-    @Update("update t_user set username = #{username},password = #{password},realName = #{realName} where id = #{id}")
+    @Update("update t_user set username = #{username},password = #{password} where id = #{id}")
     int updateUser(User user);
 }

@@ -1,6 +1,8 @@
 package com.demo.springboot.service;
 
 import com.demo.springboot.pojo.Student;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -11,6 +13,7 @@ import java.util.List;
  * @Version: 1.0
  */
 public interface StudentService {
-    List<Student> getStudents(Student student);
-    int addStudent(Student student);
+    int updateStudent(Student student);
+
+    List<Student> getStudents();
 }

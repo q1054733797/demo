@@ -1,5 +1,7 @@
 package com.demo.springboot.service;
 
+import com.demo.springboot.pojo.EasyUIDatagridResult;
+import com.demo.springboot.pojo.User;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.HashMap;
 import java.util.List;
 
 /**

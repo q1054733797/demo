@@ -15,19 +15,19 @@ import java.util.List;
  * @Date: Create in 2019/6/5 10:54
  * @Version: 1.0
  */
-@Transactional
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper studentMapper;
 
     @Override
-    public int addStudent(Student student) {
-        return studentMapper.addStudent(student);
+    @Transactional
+    public int updateStudent(Student student) {
+        return studentMapper.updateStudent(student);
     }
 
     @Override
-    public List<Student> getStudents(Student student) {
-        return studentMapper.getStudents(student);
+    public List<Student> getStudents() {
+        return studentMapper.getStudents();
     }
 }

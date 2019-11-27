@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    dynamic:
+      hikari:
+        max-pool-size: 5
+        is-auto-commit: true
+        connection-timeout: 20000
+        min-idle: 5
+      druid:
+        initial-size: 5
+        max-active: 20
+        min-idle: 5
+        max-wait: 60000
+      datasource:
+        master:
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://10.218.2.116:8904/ACCT_ACCTDB
+          username: acct
+          password: BA_bs_0917_a

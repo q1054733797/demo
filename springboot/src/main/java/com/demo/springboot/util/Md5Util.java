@@ -1,5 +1,6 @@
 package com.demo.springboot.util;
 
+import com.demo.springboot.pojo.Student;
 import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.util.DigestUtils;
 import sun.security.provider.MD5;

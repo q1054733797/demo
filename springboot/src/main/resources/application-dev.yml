@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    dynamic:
+      hikari:
+        max-pool-size: 5
+        is-auto-commit: true
+        connection-timeout: 20000
+        min-idle: 5
+      druid:
+        initial-size: 5
+        max-active: 20
+        min-idle: 5
+        max-wait: 60000
+      datasource:
+        master:
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/ssm?useSSL=false
+          username: root
+          password: 123456
+        oracle:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@localhost:1521/oracle
+          username: system
+          password: 123456
+        acctDB:
+          driver-class-name: com.mysql.jdbc.Driver
+          url: jdbc:mysql://137.0.250.228:8924/ACCTDB?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&autoReconnect=true
+          username: acctdb
+          password: pH#EfE86SZW
+        gathacctdb:
+          driver-class-name: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@137.0.244.18:1537/gathacctdb
+          username: LCH_BILWH
+          password: pH#EfE86SZW
+#        sdacctdb:
+#          driver-class-name: oracle.jdbc.driver.OracleDriver
+#          url: jdbc:oracle:thin:@137.0.253.251:1521/sdacctdb
+#          username: WUJL
+#          password: Pel#xPk6qM9
+#        ls_comm:
+#          driver-class-name: oracle.jdbc.driver.OracleDriver
+#          url: jdbc:oracle:thin:@137.0.245.17:1921/ls_comm
+#          username: mdm
+#          password: mdm

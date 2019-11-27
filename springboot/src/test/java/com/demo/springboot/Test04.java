@@ -15,6 +15,6 @@ public class Test04 {
         for (TestEnum value : values) {
             System.out.println(value.getDesc());
         }
-        System.out.println(TestEnum.valueOf("SUCCESS").getName());
+        System.out.println(TestEnum.valueOf("SUCCESS").getDesc());
     }
 }
